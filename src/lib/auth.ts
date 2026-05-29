@@ -1,39 +1,40 @@
-import { timingSafeEqual } from "node:crypto";
-import { headers } from "next/headers";
+const enc = new TextEncoder();
 
+export const SESSION_COOKIE = "amperia_session";
+
+/** Comparação de tempo constante (funciona em edge e node). */
 function safeEqual(a: string, b: string): boolean {
-  const ab = Buffer.from(a);
-  const bb = Buffer.from(b);
-  if (ab.length !== bb.length) return false;
-  return timingSafeEqual(ab, bb);
+  if (a.length !== b.length) return false;
+  let r = 0;
+  for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return r === 0;
 }
 
-/** Verifica as credenciais Basic Auth do admin no header da requisição. */
-export async function isAdminRequest(): Promise<boolean> {
+/** Token de sessão derivado das credenciais — não forjável sem a senha. */
+export async function sessionToken(): Promise<string> {
   const user = process.env.ADMIN_USER ?? "admin";
   const pass = process.env.ADMIN_PASSWORD ?? "";
-  if (pass.length === 0) return false;
-
-  const header = (await headers()).get("authorization");
-  if (!header?.startsWith("Basic ")) return false;
-
-  let decoded = "";
-  try {
-    decoded = Buffer.from(header.slice(6), "base64").toString("utf8");
-  } catch {
-    return false;
-  }
-  const sep = decoded.indexOf(":");
-  if (sep < 0) return false;
-
-  const u = decoded.slice(0, sep);
-  const p = decoded.slice(sep + 1);
-  return safeEqual(u, user) && safeEqual(p, pass);
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    enc.encode(`amperia:${user}:${pass}`),
+  );
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
-/** Garante que a requisição é de um admin autenticado (defesa em profundidade). */
-export async function assertAdmin(): Promise<void> {
-  if (!(await isAdminRequest())) {
-    throw new Error("Não autorizado.");
-  }
+/** Valida o token do cookie de sessão. */
+export async function isAuthenticated(
+  token: string | undefined | null,
+): Promise<boolean> {
+  const pass = process.env.ADMIN_PASSWORD ?? "";
+  if (pass.length === 0 || !token) return false;
+  return safeEqual(token, await sessionToken());
+}
+
+/** Valida usuário/senha do formulário de login. */
+export function verifyCredentials(user: string, pass: string): boolean {
+  const U = process.env.ADMIN_USER ?? "admin";
+  const P = process.env.ADMIN_PASSWORD ?? "";
+  return P.length > 0 && safeEqual(user, U) && safeEqual(pass, P);
 }

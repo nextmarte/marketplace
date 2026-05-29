@@ -40,7 +40,7 @@ pnpm dev                     # http://localhost:3000
 | `NEXT_PUBLIC_R2_PUBLIC_URL` | URL pública do R2 (`https://pub-xxxx.r2.dev`) para exibir imagens |
 | `OPENAI_API_KEY` | gera 1 imagem por peça no `gen:images` (gpt-image-1) |
 | `PEXELS_API_KEY` | (opcional) fotos reais no `seed:images`; sem ela, gera placeholders |
-| `ADMIN_USER`, `ADMIN_PASSWORD` | credenciais do `/admin` (Basic Auth) |
+| `ADMIN_USER`, `ADMIN_PASSWORD` | credenciais de login do painel `/admin` |
 
 ## 🧪 Testes
 ```bash
@@ -91,4 +91,4 @@ drizzle/          migrações geradas
 ## ⚠️ Notas
 - Imagens são **genéricas/ilustrativas** (Pexels — uso comercial livre).
 - Checkout e pagamento são **simulados** (nenhuma cobrança é feita).
-- A autenticação do admin é **grau-POC** (Basic Auth). Em produção, use um provedor de identidade.
+- A autenticação do admin usa **página de login (`/admin/login`) + cookie de sessão httpOnly** (grau-POC). Em produção, use um provedor de identidade.

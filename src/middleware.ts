@@ -1,32 +1,22 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { SESSION_COOKIE, isAuthenticated } from "@/lib/auth";
 
 export const config = { matcher: ["/admin", "/admin/:path*"] };
 
-export function middleware(req: NextRequest) {
-  const user = process.env.ADMIN_USER ?? "admin";
-  const pass = process.env.ADMIN_PASSWORD ?? "";
-  const header = req.headers.get("authorization");
-
-  if (pass.length > 0 && header?.startsWith("Basic ")) {
-    const decoded = atob(header.slice(6));
-    const sep = decoded.indexOf(":");
-    const u = decoded.slice(0, sep);
-    const p = decoded.slice(sep + 1);
-    if (u === user && p === pass) {
-      return NextResponse.next();
-    }
+export async function middleware(req: NextRequest) {
+  // A própria página de login é pública.
+  if (req.nextUrl.pathname === "/admin/login") {
+    return NextResponse.next();
   }
 
-  // Em prefetch/RSC-prefetch não enviamos WWW-Authenticate, para o navegador
-  // não abrir o popup de login sozinho ao pré-carregar o link do /admin.
-  const isPrefetch =
-    req.headers.get("next-router-prefetch") === "1" ||
-    req.headers.get("purpose") === "prefetch";
+  const token = req.cookies.get(SESSION_COOKIE)?.value;
+  if (await isAuthenticated(token)) {
+    return NextResponse.next();
+  }
 
-  return new NextResponse("Autenticação necessária.", {
-    status: 401,
-    headers: isPrefetch
-      ? {}
-      : { "WWW-Authenticate": 'Basic realm="Amperia Admin"' },
-  });
+  // Sem sessão válida → redireciona para a página de login (sem popup).
+  const url = req.nextUrl.clone();
+  url.pathname = "/admin/login";
+  url.search = "";
+  return NextResponse.redirect(url);
 }

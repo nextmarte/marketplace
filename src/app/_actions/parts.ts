@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import sharp from "sharp";
 import { getDb } from "@/db";
 import { leads, orderItems, parts } from "@/db/schema";
-import { isAdminRequest } from "@/lib/auth";
+import { isAdminRequest } from "@/lib/admin-guard";
 import { uploadToR2 } from "@/lib/r2-server";
 import { slugify } from "@/lib/slug";
 import { partInputSchema } from "@/lib/validation";

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { logout } from "@/app/_actions/auth";
 import { formatPriceBRL } from "@/lib/format";
 import { listLeads, listOrders, listParts } from "@/lib/queries";
 
@@ -37,12 +38,22 @@ export default async function AdminPage() {
             Administração
           </h1>
         </div>
-        <Link
-          href="/admin/pecas"
-          className="rounded-full bg-brand-500 px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-brand-400"
-        >
-          Gerenciar peças
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin/pecas"
+            className="rounded-full bg-brand-500 px-5 py-2.5 font-semibold text-ink transition-colors hover:bg-brand-400"
+          >
+            Gerenciar peças
+          </Link>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="rounded-full border border-line px-4 py-2.5 text-sm font-medium text-muted-fg transition-colors hover:text-ink"
+            >
+              Sair
+            </button>
+          </form>
+        </div>
       </div>
 
       <div className="mt-8 grid grid-cols-3 gap-4">
