@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import sharp from "sharp";
 import { getDb } from "@/db";
 import { leads, orderItems, parts } from "@/db/schema";
+import { isAdminRequest } from "@/lib/auth";
 import { uploadToR2 } from "@/lib/r2-server";
 import { slugify } from "@/lib/slug";
 import { partInputSchema } from "@/lib/validation";
@@ -61,6 +62,8 @@ function parsePart(formData: FormData) {
 }
 
 export async function createPart(formData: FormData): Promise<PartActionResult> {
+  if (!(await isAdminRequest())) return { ok: false, error: "Não autorizado." };
+
   const parsed = parsePart(formData);
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Dados inválidos" };
@@ -97,6 +100,8 @@ export async function createPart(formData: FormData): Promise<PartActionResult> 
 }
 
 export async function updatePart(formData: FormData): Promise<PartActionResult> {
+  if (!(await isAdminRequest())) return { ok: false, error: "Não autorizado." };
+
   const id = Number(formData.get("id"));
   if (!id) return { ok: false, error: "Peça inválida" };
 
@@ -135,6 +140,8 @@ export async function updatePart(formData: FormData): Promise<PartActionResult> 
 }
 
 export async function deletePart(formData: FormData): Promise<void> {
+  if (!(await isAdminRequest())) return;
+
   const id = Number(formData.get("id"));
   if (!id) return;
   const db = getDb();

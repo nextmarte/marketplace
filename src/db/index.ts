@@ -13,7 +13,7 @@ export function getDb(): NodePgDatabase<typeof schema> {
     }
     const pool = new Pool({
       connectionString,
-      ssl: { rejectUnauthorized: false },
+      ssl: { rejectUnauthorized: true },
     });
     cached = drizzle(pool, { schema });
   }

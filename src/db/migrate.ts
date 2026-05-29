@@ -9,7 +9,7 @@ async function main() {
   const pool = new Pool({
     connectionString:
       process.env.DATABASE_URL_UNPOOLED ?? process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
+    ssl: { rejectUnauthorized: true },
   });
   const db = drizzle(pool);
   await migrate(db, { migrationsFolder: "drizzle" });
