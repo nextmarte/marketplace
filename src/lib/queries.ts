@@ -83,3 +83,17 @@ export async function listCategories() {
     orderBy: (c, { asc }) => [asc(c.name)],
   });
 }
+
+export async function listSellers() {
+  return getDb().query.sellers.findMany({
+    orderBy: (s, { asc }) => [asc(s.name)],
+  });
+}
+
+/** Pedido com itens e peças (tela de sucesso do checkout). */
+export async function getOrderById(id: number) {
+  return getDb().query.orders.findFirst({
+    where: (o, { eq }) => eq(o.id, id),
+    with: { items: { with: { part: true } } },
+  });
+}
