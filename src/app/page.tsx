@@ -6,7 +6,6 @@ import {
   getFeaturedParts,
   listBrands,
   listCategories,
-  listParts,
 } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
@@ -30,19 +29,11 @@ const steps = [
 ];
 
 export default async function HomePage() {
-  const [featured, categories, brands, all] = await Promise.all([
+  const [featured, categories, brands] = await Promise.all([
     getFeaturedParts(8),
     listCategories(),
     listBrands(),
-    listParts(),
   ]);
-
-  const stats = [
-    { value: `${all.length}`, label: "Peças catalogadas" },
-    { value: `${brands.length}`, label: "Marcas de EV" },
-    { value: `${categories.length}`, label: "Categorias" },
-    { value: "Zero", label: "Espera por importação" },
-  ];
 
   const heroVideos = [
     publicImageUrl("media/hero-1.mp4"),
@@ -120,22 +111,6 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-
-          <dl
-            className="amp-rise mt-16 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line-dark pt-8 sm:grid-cols-4"
-            style={{ animationDelay: "440ms" }}
-          >
-            {stats.map((s) => (
-              <div key={s.label}>
-                <dt className="font-display text-3xl font-bold text-brand-400">
-                  {s.value}
-                </dt>
-                <dd className="mt-1 text-xs uppercase tracking-wide text-paper/60">
-                  {s.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
 
