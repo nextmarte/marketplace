@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { HeroVideoBackground } from "@/components/hero-video-background";
 import { ProductCard } from "@/components/product-card";
+import { publicImageUrl } from "@/lib/r2";
 import {
   getFeaturedParts,
   listBrands,
@@ -42,81 +44,91 @@ export default async function HomePage() {
     { value: "Zero", label: "Espera por importação" },
   ];
 
+  const heroVideos = [
+    publicImageUrl("media/hero-1.mp4"),
+    publicImageUrl("media/hero-2.mp4"),
+  ].filter((u): u is string => Boolean(u));
+
   return (
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-ink text-paper">
-        <div className="absolute inset-0 amp-grid opacity-40" />
+        {heroVideos.length > 0 && <HeroVideoBackground sources={heroVideos} />}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/55" />
+        <div className="absolute inset-0 amp-grid opacity-20" />
         <div className="absolute inset-0 amp-glow" />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
-          <p
-            className="amp-rise font-mono text-xs uppercase tracking-[0.35em] text-brand-300"
-            style={{ animationDelay: "0ms" }}
-          >
-            Marketplace · Peças para carros elétricos
-          </p>
-          <h1
-            className="amp-rise mt-5 max-w-3xl font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl"
-            style={{ animationDelay: "80ms" }}
-          >
-            A peça que falta na concessionária,
-            <span className="text-brand-400"> você encontra aqui.</span>
-          </h1>
-          <p
-            className="amp-rise mt-6 max-w-xl text-lg leading-relaxed text-paper/70"
-            style={{ animationDelay: "160ms" }}
-          >
-            Freios, recarga, bateria 12V, suspensão e mais — dos itens
-            notoriamente em falta para BYD, GWM, Volvo, Renault, Tesla e outras.
-          </p>
+        <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32">
+          <div className="max-w-2xl">
+            <p
+              className="amp-rise font-mono text-xs uppercase tracking-[0.35em] text-brand-300"
+              style={{ animationDelay: "0ms" }}
+            >
+              Marketplace · Peças para carros elétricos
+            </p>
+            <h1
+              className="amp-rise mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl"
+              style={{ animationDelay: "80ms" }}
+            >
+              A peça que falta na concessionária,
+              <span className="text-brand-400"> você encontra aqui.</span>
+            </h1>
+            <p
+              className="amp-rise mt-6 max-w-xl text-lg leading-relaxed text-paper/80"
+              style={{ animationDelay: "160ms" }}
+            >
+              Freios, recarga, bateria 12V, suspensão e mais — dos itens
+              notoriamente em falta para BYD, GWM, Volvo, Renault, Tesla e
+              outras.
+            </p>
 
-          <form
-            action="/pecas"
-            className="amp-rise mt-8 flex max-w-xl items-center gap-2 rounded-full border border-line-dark bg-ink-2/80 p-1.5 backdrop-blur"
-            style={{ animationDelay: "240ms" }}
-          >
-            <input
-              type="search"
-              name="q"
-              placeholder="Buscar peça, SKU ou descrição…"
-              className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-paper placeholder:text-paper/40 focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="shrink-0 rounded-full bg-brand-500 px-5 py-2 text-sm font-semibold text-ink transition-colors hover:bg-brand-400"
+            <form
+              action="/pecas"
+              className="amp-rise mt-8 flex max-w-xl items-center gap-2 rounded-full border border-line-dark bg-ink-2/80 p-1.5 backdrop-blur"
+              style={{ animationDelay: "240ms" }}
             >
-              Buscar
-            </button>
-          </form>
+              <input
+                type="search"
+                name="q"
+                placeholder="Buscar peça, SKU ou descrição…"
+                className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-paper placeholder:text-paper/40 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="shrink-0 rounded-full bg-brand-500 px-5 py-2 text-sm font-semibold text-ink transition-colors hover:bg-brand-400"
+              >
+                Buscar
+              </button>
+            </form>
 
-          <div
-            className="amp-rise mt-4 flex flex-wrap gap-3"
-            style={{ animationDelay: "320ms" }}
-          >
-            <Link
-              href="/pecas?status=em_falta"
-              className="rounded-full border border-scarce/40 bg-scarce/10 px-4 py-1.5 text-sm font-medium text-scarce transition-colors hover:bg-scarce/20"
+            <div
+              className="amp-rise mt-4 flex flex-wrap gap-3"
+              style={{ animationDelay: "320ms" }}
             >
-              Ver só o que está em falta →
-            </Link>
-            <Link
-              href="/pecas"
-              className="rounded-full border border-line-dark px-4 py-1.5 text-sm font-medium text-paper/80 transition-colors hover:border-brand-400 hover:text-brand-300"
-            >
-              Explorar catálogo
-            </Link>
+              <Link
+                href="/pecas?status=em_falta"
+                className="rounded-full border border-scarce/40 bg-scarce/10 px-4 py-1.5 text-sm font-medium text-scarce transition-colors hover:bg-scarce/20"
+              >
+                Ver só o que está em falta →
+              </Link>
+              <Link
+                href="/pecas"
+                className="rounded-full border border-line-dark bg-ink/40 px-4 py-1.5 text-sm font-medium text-paper/80 backdrop-blur transition-colors hover:border-brand-400 hover:text-brand-300"
+              >
+                Explorar catálogo
+              </Link>
+            </div>
           </div>
 
           <dl
-            className="amp-rise mt-14 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line-dark pt-8 sm:grid-cols-4"
-            style={{ animationDelay: "400ms" }}
+            className="amp-rise mt-16 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line-dark pt-8 sm:grid-cols-4"
+            style={{ animationDelay: "440ms" }}
           >
             {stats.map((s) => (
               <div key={s.label}>
                 <dt className="font-display text-3xl font-bold text-brand-400">
                   {s.value}
                 </dt>
-                <dd className="mt-1 text-xs uppercase tracking-wide text-paper/50">
+                <dd className="mt-1 text-xs uppercase tracking-wide text-paper/60">
                   {s.label}
                 </dd>
               </div>
