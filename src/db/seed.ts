@@ -444,7 +444,7 @@ async function main() {
         priceCents: p.priceCents,
         stockStatus: p.status,
         featured: p.featured ?? false,
-        imageKey: `parts/${p.image}.webp`,
+        imageKey: `parts/${slugify(p.name)}.webp`,
       })
       .returning();
 

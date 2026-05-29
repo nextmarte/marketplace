@@ -27,7 +27,7 @@ pnpm install
 cp .env.example .env.local   # preencha os valores (veja abaixo)
 pnpm db:migrate              # cria as tabelas no Neon
 pnpm db:seed                 # popula marcas, categorias, vendedores e peças
-pnpm seed:images             # (opcional) baixa imagens e envia ao R2
+pnpm gen:images              # (opcional) gera 1 imagem por peça via OpenAI → R2
 pnpm dev                     # http://localhost:3000
 ```
 
@@ -38,6 +38,7 @@ pnpm dev                     # http://localhost:3000
 | `DATABASE_URL_UNPOOLED` | Neon **direct** — usada por migrações/seed |
 | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` | Cloudflare R2 (upload) |
 | `NEXT_PUBLIC_R2_PUBLIC_URL` | URL pública do R2 (`https://pub-xxxx.r2.dev`) para exibir imagens |
+| `OPENAI_API_KEY` | gera 1 imagem por peça no `gen:images` (gpt-image-1) |
 | `PEXELS_API_KEY` | (opcional) fotos reais no `seed:images`; sem ela, gera placeholders |
 | `ADMIN_USER`, `ADMIN_PASSWORD` | credenciais do `/admin` (Basic Auth) |
 
@@ -58,7 +59,8 @@ reducer do carrinho, validações Zod e componentes.
 | `pnpm db:migrate` | aplica migrações no Neon |
 | `pnpm db:seed` | popula o banco |
 | `pnpm db:studio` | Drizzle Studio |
-| `pnpm seed:images` | baixa imagens e envia ao R2 |
+| `pnpm gen:images` | **gera 1 imagem por peça via OpenAI** (gpt-image-1) e envia ao R2 |
+| `pnpm seed:images` | alternativa: fotos de banco de imagens (Pexels/Commons) → R2 |
 
 ## ☁️ Deploy na Vercel
 ```bash

@@ -15,7 +15,8 @@ Marketplace de peças de reposição para **carros elétricos** no Brasil, focad
 - `pnpm test` / `pnpm test:watch` — testes
 - `pnpm db:push` — aplica o schema Drizzle no Neon
 - `pnpm db:seed` — popula marcas, categorias, sellers e peças
-- `pnpm seed:images` — baixa imagens curadas e envia ao R2
+- `pnpm gen:images` — gera 1 imagem por peça via OpenAI (gpt-image-1) e envia ao R2 (recomendado)
+- `pnpm seed:images` — alternativa: baixa fotos de banco de imagens (Pexels/Commons) e envia ao R2
 - `pnpm db:studio` — Drizzle Studio
 - `pnpm build` / `pnpm start`
 
