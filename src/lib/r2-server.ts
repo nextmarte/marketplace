@@ -34,6 +34,8 @@ export async function uploadToR2(
       Key: key,
       Body: body,
       ContentType: contentType,
+      // Cache agressivo: navegador/CDN guardam por 1 ano e não re-baixam do R2.
+      CacheControl: "public, max-age=31536000, immutable",
     }),
   );
   return key;

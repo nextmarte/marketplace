@@ -19,7 +19,8 @@
     "gen:logo": "tsx scripts/generate-logo.ts",
     "gen:hero": "tsx scripts/generate-hero-video.ts",
     "gen:hero-bg": "tsx scripts/generate-hero-bg.ts",
-    "gen:hero-cut": "tsx scripts/generate-hero-cut.ts"
+    "gen:hero-cut": "tsx scripts/generate-hero-cut.ts",
+    "opt:hero": "tsx scripts/optimize-hero.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1056.0",
