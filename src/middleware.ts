@@ -17,8 +17,16 @@ export function middleware(req: NextRequest) {
     }
   }
 
+  // Em prefetch/RSC-prefetch não enviamos WWW-Authenticate, para o navegador
+  // não abrir o popup de login sozinho ao pré-carregar o link do /admin.
+  const isPrefetch =
+    req.headers.get("next-router-prefetch") === "1" ||
+    req.headers.get("purpose") === "prefetch";
+
   return new NextResponse("Autenticação necessária.", {
     status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="Amperia Admin"' },
+    headers: isPrefetch
+      ? {}
+      : { "WWW-Authenticate": 'Basic realm="Amperia Admin"' },
   });
 }

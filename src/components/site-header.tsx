@@ -52,6 +52,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/admin"
+            prefetch={false}
             className="hidden text-sm font-medium text-paper/55 transition-colors hover:text-paper sm:block"
           >
             Admin

@@ -67,6 +67,7 @@ export function SiteFooter() {
                 <li key={l.href + l.label}>
                   <Link
                     href={l.href}
+                    prefetch={l.href.startsWith("/admin") ? false : undefined}
                     className="text-sm text-paper/75 transition-colors hover:text-brand-300"
                   >
                     {l.label}
