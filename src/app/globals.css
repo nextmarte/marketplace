@@ -13,24 +13,86 @@
   --color-brand-800: #045f46;
   --color-brand-900: #064c3a;
 
-  /* Tinta e superfícies */
-  --color-ink: #0b1220;
-  --color-ink-soft: #3b4452;
-  --color-surface: #ffffff;
-  --color-muted: #f4f7f6;
-  --color-line: #e6ebe9;
+  /* Superfícies escuras (header, hero, footer) */
+  --color-ink: #0a0e16;
+  --color-ink-2: #111a27;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* Superfícies claras (catálogo) */
+  --color-paper: #f4f8f6;
+  --color-card: #ffffff;
+  --color-line: #e2eae6;
+  --color-line-dark: #1c2735;
+  --color-muted: #eef3f1;
+  --color-muted-fg: #59636f;
+
+  /* Status de estoque */
+  --color-scarce: #ef8f1a;
+  --color-order: #3a9bff;
+
+  /* Tipografia */
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-hanken), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Animações */
+  --animate-pulse-line: pulse-line 4s ease-in-out infinite;
+}
+
+@keyframes pulse-line {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes amp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #0b1220;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+}
+
+/* Revelação escalonada na carga (hero) */
+.amp-rise {
+  animation: amp-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Grade técnica (blueprint) para superfícies escuras */
+.amp-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Brilho radial verde (hero) */
+.amp-glow {
+  background:
+    radial-gradient(
+      60% 60% at 75% 20%,
+      rgba(16, 227, 164, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      50% 50% at 8% 92%,
+      rgba(3, 196, 137, 0.12),
+      transparent 60%
+    );
 }
