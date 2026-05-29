@@ -27,7 +27,7 @@ function reaisToCents(raw: string): number {
 async function processImage(
   formData: FormData,
   name: string,
-): Promise<string | null | { error: string }> {
+): Promise<string | null | { ok: false; error: string }> {
   const file = formData.get("image");
   if (!(file instanceof File) || file.size === 0) return null;
   try {
@@ -41,6 +41,7 @@ async function processImage(
     return key;
   } catch {
     return {
+      ok: false,
       error: "Falha ao enviar a imagem. Configure o R2 no .env ou salve sem imagem.",
     };
   }
