@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CartCount } from "./cart-count";
 
 const nav = [
   { href: "/pecas", label: "Catálogo" },
@@ -59,10 +60,11 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/carrinho"
-            className="inline-flex items-center gap-2 rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-brand-400"
+            className="relative inline-flex items-center gap-2 rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-brand-400"
           >
             <CartIcon />
             <span className="hidden sm:inline">Carrinho</span>
+            <CartCount />
           </Link>
         </div>
       </div>
