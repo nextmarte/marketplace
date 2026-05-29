@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
+@theme {
+  /* Marca Amperia — verde-elétrico (energia/EV) */
+  --color-brand-50: #e6fff6;
+  --color-brand-100: #b8ffe7;
+  --color-brand-200: #7dffd4;
+  --color-brand-300: #38f7bd;
+  --color-brand-400: #10e3a4;
+  --color-brand-500: #03c489;
+  --color-brand-600: #009e6f;
+  --color-brand-700: #007a57;
+  --color-brand-800: #045f46;
+  --color-brand-900: #064c3a;
+
+  /* Tinta e superfícies */
+  --color-ink: #0b1220;
+  --color-ink-soft: #3b4452;
+  --color-surface: #ffffff;
+  --color-muted: #f4f7f6;
+  --color-line: #e6ebe9;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #0b1220;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
