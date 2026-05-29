@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const cols = [
@@ -36,11 +37,13 @@ export function SiteFooter() {
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-500">
-              <svg viewBox="0 0 24 24" className="h-5 w-5 text-ink" fill="currentColor">
-                <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l0-8z" />
-              </svg>
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Amperia"
+              width={32}
+              height={32}
+              className="h-8 w-8"
+            />
             <span className="font-display text-xl font-extrabold tracking-tight">
               Amperia
             </span>

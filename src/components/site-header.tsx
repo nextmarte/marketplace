@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CartCount } from "./cart-count";
 
@@ -7,16 +8,6 @@ const nav = [
   { href: "/#marcas", label: "Marcas" },
   { href: "/#como-funciona", label: "Como funciona" },
 ];
-
-function BoltMark() {
-  return (
-    <span className="relative grid h-8 w-8 place-items-center rounded-lg bg-brand-500 shadow-[0_0_18px_-2px_rgba(3,196,137,0.7)]">
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-ink" fill="currentColor">
-        <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l0-8z" />
-      </svg>
-    </span>
-  );
-}
 
 function CartIcon() {
   return (
@@ -33,7 +24,14 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-line-dark bg-ink/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5">
-          <BoltMark />
+          <Image
+            src="/logo.png"
+            alt="Amperia"
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-9"
+          />
           <span className="font-display text-xl font-extrabold tracking-tight text-paper">
             Amperia
           </span>
