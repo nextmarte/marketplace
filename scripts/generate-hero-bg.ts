@@ -8,23 +8,20 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const clips = [
   {
-    key: "media/hero-1.mp4",
+    key: "media/hero-3.mp4",
     prompt:
-      "Cinematic slow tracking shot gliding through a bright, modern " +
-      "electric-vehicle auto-parts store. Neat shelves filled with EV parts — " +
-      "brake discs, coiled Type 2 charging cables, boxed batteries, LED " +
-      "headlights. Soft premium lighting with subtle emerald-green accents, " +
-      "shallow depth of field, glossy surfaces. No people, no text, no logos. " +
-      "Smooth steady camera motion.",
+      "Macro cinematic product shot: a Type 2 EV charging connector with a " +
+      "coiled cable rotating slowly on a reflective dark surface, emerald-green " +
+      "rim lighting, crisp reflections, premium commercial look, shallow depth " +
+      "of field. No people, no text, no logos.",
   },
   {
-    key: "media/hero-2.mp4",
+    key: "media/hero-4.mp4",
     prompt:
-      "Cinematic close-up b-roll of electric car replacement parts arranged on " +
-      "a clean workshop counter — a Type 2 charging connector, brake pads, a " +
-      "compact 12V battery, a suspension control arm. Slow dolly with gentle " +
-      "rack focus, premium product lighting, emerald-green rim light, dark " +
-      "background. No people, no text, no logos.",
+      "Cinematic dolly shot moving past tidy warehouse shelves stacked with " +
+      "boxed electric-vehicle parts and tires, cool blue and emerald-green " +
+      "lighting, futuristic clean logistics feel, depth of field. No people, " +
+      "no text, no logos.",
   },
 ];
 

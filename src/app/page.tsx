@@ -47,6 +47,8 @@ export default async function HomePage() {
   const heroVideos = [
     publicImageUrl("media/hero-1.mp4"),
     publicImageUrl("media/hero-2.mp4"),
+    publicImageUrl("media/hero-3.mp4"),
+    publicImageUrl("media/hero-4.mp4"),
   ].filter((u): u is string => Boolean(u));
 
   return (
