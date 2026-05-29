@@ -14,7 +14,8 @@
     "db:push": "drizzle-kit push",
     "db:seed": "tsx src/db/seed.ts",
     "db:studio": "drizzle-kit studio",
-    "seed:images": "tsx scripts/seed-images.ts"
+    "seed:images": "tsx scripts/seed-images.ts",
+    "gen:images": "tsx scripts/generate-images.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1056.0",
