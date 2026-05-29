@@ -97,3 +97,27 @@ export async function getOrderById(id: number) {
     with: { items: { with: { part: true } } },
   });
 }
+
+/** Peça por id, com relações (edição no admin). */
+export async function getPartById(id: number) {
+  return getDb().query.parts.findFirst({
+    where: (p, { eq }) => eq(p.id, id),
+    with: withRelations,
+  });
+}
+
+/** Leads (cotações) recentes — admin. */
+export async function listLeads(limit = 25) {
+  return getDb().query.leads.findMany({
+    orderBy: (l, { desc }) => [desc(l.createdAt)],
+    limit,
+  });
+}
+
+/** Pedidos recentes — admin. */
+export async function listOrders(limit = 25) {
+  return getDb().query.orders.findMany({
+    orderBy: (o, { desc }) => [desc(o.createdAt)],
+    limit,
+  });
+}
